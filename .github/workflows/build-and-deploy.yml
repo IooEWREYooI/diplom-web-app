@@ -51,6 +51,9 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'release'
 
+    outputs:
+      image-tag: ${{ steps.extract-tag.outputs.tag }}
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
