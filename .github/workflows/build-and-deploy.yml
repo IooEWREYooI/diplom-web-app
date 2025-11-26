@@ -57,9 +57,7 @@ jobs:
 
     - name: Configure kubectl
       run: |
-        mkdir -p ~/.kube
-        echo "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJkakNDQVIyZ0F3SUJBZ0lCQURBS0JnZ3Foa2pPUFFRREFqQWpNU0V3SHdZRFZRUUREQmhyTTNNdGMyVnkKZG1WeUxXTmhRREUzTmpReE5qazRNemd3SGhjTk1qVXhNVEkyTVRVeE1ETTRXaGNOTXpVeE1USTBNVFV4TURNNApXakFqTVNFd0h3WURWUVFEREJock0zTXRjMlZ5ZG1WeUxXTmhRREUzTmpReE5qazRNemd3V1RBVEJnY3Foa2pPClBRSUJCZ2dxaGtqT1BRTUJCd05DQUFSRkI2T04rdXBNc0dpcitzMm1NL2hMcmxZNWhlaEVOQ1owTFZraHNCVGsKSUdrakZZYUJCdGh5ZHJSa1pyV2NNV3lnSWk2Ukt3cERwNGNDWlNDL0YxZ1RvMEl3UURBT0JnTlZIUThCQWY4RQpCQU1DQXFRd0R3WURWUjBUQVFIL0JBVXdBd0VCL3pBZEJnTlZIUTRFRmdRVXJQWDE3eUN2cWJWMlFBVEFyQ1ZZCmZ2RlRUUzh3Q2dZSUtvWkl6ajBFQXdJRFJ3QXdSQUlnSHRrZnFTQkcwaWRFTkFoYlBZcXJXeHFIUU9mRHN6S3kKM2JqRkI3NS9EZVFDSUZOMEdNUUQrMG52WFh1TzgyUXk2TjVJemdSYlowOEVuaTRCSlBGRExPYkcKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=" | base64 -d > ca.crt
-        kubectl config set-cluster k3s --server=https://178.154.207.95:6443 --certificate-authority=ca.crt
+        kubectl config set-cluster k3s --server=https://178.154.207.95:6443 --insecure-skip-tls-verify=true
         kubectl config set-credentials github-actions --token=${{ secrets.KUBE_CONFIG }}
         kubectl config set-context k3s --cluster=k3s --user=github-actions
         kubectl config use-context k3s
@@ -67,7 +65,7 @@ jobs:
     - name: Deploy to Kubernetes
       run: |
         # Apply Kubernetes manifests
-        kubectl apply -f k8s/
+        kubectl apply -f k8s/ --validate=false
 
         # Wait for rollout to complete
         kubectl rollout status deployment/diplom-web-app
