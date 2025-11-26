@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дипломный практикум - DevOps</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        .status {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+        .info {
+            background: #2196F3;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .tech-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .status {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Дипломный практикум</h1>
+        <h2>DevOps в Yandex.Cloud</h2>
+
+        <div class="status">
+            ✅ Инфраструктура развернута<br>
+            ✅ Kubernetes кластер запущен<br>
+            ✅ CI/CD настроен<br>
+            ✅ Мониторинг работает
+        </div>
+
+        <div class="info">
+            <strong>Текущее время:</strong> <span id="currentTime"></span><br>
+            <strong>Версия приложения:</strong> v1.0.0<br>
+            <strong>Среда:</strong> Kubernetes + k3s
+        </div>
+
+        <div class="tech-stack">
+            <div class="tech-item">
+                <strong>☁️ Cloud</strong><br>
+                Yandex.Cloud
+            </div>
+            <div class="tech-item">
+                <strong>🐳 Container</strong><br>
+                Docker
+            </div>
+            <div class="tech-item">
+                <strong>⚓ Orchestration</strong><br>
+                Kubernetes (k3s)
+            </div>
+            <div class="tech-item">
+                <strong>🔄 CI/CD</strong><br>
+                GitHub Actions
+            </div>
+            <div class="tech-item">
+                <strong>📊 Monitoring</strong><br>
+                Prometheus + Grafana
+            </div>
+            <div class="tech-item">
+                <strong>🌐 Ingress</strong><br>
+                Traefik
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Развернуто автоматически через CI/CD pipeline</p>
+            <p>Ершов Сергей | Дипломный практикум</p>
+        </div>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleString('ru-RU');
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
