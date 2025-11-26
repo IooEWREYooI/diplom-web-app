@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diplom-web-app
+  labels:
+    app: diplom-web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: diplom-web-app
+  template:
+    metadata:
+      labels:
+        app: diplom-web-app
+    spec:
+      containers:
+      - name: diplom-web-app
+        image: yakovmanuilov/diplom-web-app:v1.0.0
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5

@@ -63,12 +63,24 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
-        # Update deployment image
-        kubectl set image deployment/diplom-web-app diplom-web-app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }}
+        # Apply Kubernetes manifests
+        kubectl apply -f k8s/
+
+        # Wait for rollout to complete
         kubectl rollout status deployment/diplom-web-app
 
     - name: Verify deployment
       run: |
-        kubectl get pods
-        kubectl get services
+        echo "=== Pods ==="
+        kubectl get pods -l app=diplom-web-app
+        echo "=== Services ==="
+        kubectl get services -l app=diplom-web-app
+        echo "=== Ingress ==="
         kubectl get ingress
+
+    - name: Test application
+      run: |
+        # Get service URL and test
+        SERVICE_IP=$(kubectl get svc diplom-web-app-service -o jsonpath='{.spec.clusterIP}')
+        echo "Testing application at: http://$SERVICE_IP"
+        curl -f http://$SERVICE_IP/ || echo "Application test failed"
