@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: diplom-web-app
-        image: yakovmanuilov/diplom-web-app:v1.0.7
+        image: yakovmanuilov/diplom-web-app:{{IMAGE_TAG}}
         ports:
         - containerPort: 80
         resources:
